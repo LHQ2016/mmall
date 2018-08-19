@@ -1,0 +1,47 @@
+[33mcommit 3c098ddd7c9905d3110bf057e6744d8c37854162[m[33m ([m[1;36mHEAD -> [m[1;32mv1[m[33m)[m
+Author: Chenzi <LHQ2016@gmail.com>
+Date:   Sat Aug 18 11:46:33 2018 +0800
+
+    修改UserManageController和CategoryManageController的名称
+
+[33mcommit c80e9efb49fda9c618aa6f9a8034935149f0dd99[m[33m ([m[1;31morigin/v1[m[33m)[m
+Author: Chenzi <LHQ2016@gmail.com>
+Date:   Sat Aug 18 11:02:18 2018 +0800
+
+    完成category模块的开发
+
+[33mcommit 5f5ba02c4d4072f6c03f85c6f8377fb28670dc93[m
+Author: Chenzi <LHQ2016@gmail.com>
+Date:   Sat Aug 18 00:14:51 2018 +0800
+
+    add add_category
+
+[33mcommit 788f788b90cc3f04f1d91e9932697e5ff16ef3ae[m
+Author: Chenzi <LHQ2016@gmail.com>
+Date:   Fri Aug 17 23:18:41 2018 +0800
+
+    完成用户模块的开发
+
+[33mcommit 1903bb960573d5d7858ad4bb90b5bad00e200336[m
+Author: Chenzi <LHQ2016@gmail.com>
+Date:   Thu Aug 16 20:07:07 2018 +0800
+
+    add spring configure
+
+[33mcommit 4a76e3b4d3ec37d6f6233dd57f0f642eb1a2e08d[m
+Author: Chenzi <LHQ2016@gmail.com>
+Date:   Thu Aug 16 17:14:34 2018 +0800
+
+    commit mmall.ini
+
+[33mcommit d34c5740e74d5dfb709956ef50610c29457bc652[m
+Author: Chenzi <LHQ2016@gmail.com>
+Date:   Thu Aug 16 17:10:59 2018 +0800
+
+    create pojo,mapper and dao
+
+[33mcommit 79f865c02f371364993c6081f984827db55f5c34[m
+Author: Chenzi <LHQ2016@gmail.com>
+Date:   Thu Aug 16 11:04:22 2018 +0800
+
+    init project
