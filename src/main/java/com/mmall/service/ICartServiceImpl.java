@@ -1,5 +1,6 @@
 package com.mmall.service;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
@@ -42,15 +43,57 @@ public class ICartServiceImpl implements ICartService {
             cartItem.setUserId(userId);
             cartMapper.insertSelective(cartItem);
 
-        }else {
+        } else {
             //该产品在购物车中
             //如果产品已经存在，则数量加count
             count = cart.getQuantity() + count;
             cart.setQuantity(count);
             cartMapper.updateByPrimaryKeySelective(cart);
         }
+        return this.searchByUserId(userId);
+    }
+
+    @Override
+    public ServerResponse<CartVo> update(Integer userId, Integer productId, Integer count) {
+        if (productId == null || count == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        Cart cart = cartMapper.selectByUserIdAndProductId(userId, productId);
+        if (cart == null) {
+            cart.setQuantity(count);
+        }
+        cartMapper.updateByPrimaryKeySelective(cart);
+        return this.searchByUserId(userId);
+    }
+
+    @Override
+    public ServerResponse<CartVo> deleteProduct(Integer userId, String productIds) {
+        List<String> productIdList = Splitter.on(".").splitToList(productIds);
+        if (CollectionUtils.isEmpty(productIdList)) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        cartMapper.deleteByUserId(userId, productIdList);
+        return this.searchByUserId(userId);
+    }
+
+    @Override
+    public ServerResponse<CartVo> searchByUserId(Integer userId) {
         CartVo cartVo = this.getCartLimit(userId);
         return ServerResponse.createBySuccess(cartVo);
+    }
+
+    @Override
+    public ServerResponse<CartVo> selectOrUnSelect(Integer userId, Integer checked,Integer productId) {
+        cartMapper.checkOrUnCheckProduct(userId, checked, checked);
+        return this.searchByUserId(userId);
+    }
+
+    @Override
+    public ServerResponse<Integer> getCartProductCount(Integer userId) {
+        if (userId == null) {
+            return ServerResponse.createBySuccess(0);
+        }
+        return ServerResponse.createBySuccess(cartMapper.selectCartProductCount(userId));
     }
 
     private CartVo getCartLimit(Integer userId) {
@@ -79,7 +122,7 @@ public class ICartServiceImpl implements ICartService {
                         //库存充足
                         buyLimitCount = cartItem.getQuantity();
                         cartProductVo.setLimitQuantity(Const.Cart.LIMIT_NUM_SUCCESS);
-                    }else {
+                    } else {
                         //库存不足
                         buyLimitCount = product.getStock();
                         Cart cartForQuantity = new Cart();
@@ -89,7 +132,7 @@ public class ICartServiceImpl implements ICartService {
                     }
                     cartProductVo.setProductStock(buyLimitCount);
                     //计算购物车中单个产品的价格
-                    cartProductVo.setProductTotalPrice(BigDecimalUtil.mul(product.getPrice().doubleValue(),cartItem.getQuantity().doubleValue()));
+                    cartProductVo.setProductTotalPrice(BigDecimalUtil.mul(product.getPrice().doubleValue(), cartItem.getQuantity().doubleValue()));
                     cartProductVo.setProductChecked(cartItem.getChecked());
                 }
                 if (cartItem.getChecked() == Const.Cart.CHECKED) {
@@ -103,13 +146,13 @@ public class ICartServiceImpl implements ICartService {
         cartVo.setCartProductVoList(cartProductVoList);
         cartVo.setAllChecked(this.getAllCheckStatus(userId));
         cartVo.setImageHost(PropertiesUtil.getProperty("ftp.server.http.prefix"));
-        return  cartVo;
+        return cartVo;
     }
-    private boolean getAllCheckStatus(Integer userId){
+
+    private boolean getAllCheckStatus(Integer userId) {
         if (userId == null) {
             return false;
         }
-
         return cartMapper.selectCartProductCheckStatusByUserId(userId) == 0;
     }
 }
