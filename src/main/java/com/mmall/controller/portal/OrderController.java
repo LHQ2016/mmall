@@ -30,6 +30,24 @@ public class OrderController {
     @Autowired
     private IOrderService iOrderService;
 
+    /**
+     * 通过收货地址向后台提交
+     * @param session
+     * @param shippingId
+     * @return
+     */
+    @RequestMapping("create.do")
+    @ResponseBody
+    public ServerResponse createOrder(HttpSession session, Integer shippingId) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+        }
+
+        //todo
+        return null;
+    }
+
     @RequestMapping("pay.do")
     @ResponseBody
     public ServerResponse pay(HttpSession session, HttpServletRequest request, Long orderId) {

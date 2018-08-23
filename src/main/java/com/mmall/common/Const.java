@@ -81,13 +81,30 @@ public class Const {
         ALIPAY(1, "支付宝"),
         WECHAT(2, "微信");
 
-        private String value;
-        private int code;
-
         PayplatformEnum(int code,String value) {
             this.value = value;
             this.code = code;
         }
+        private String value;
+        private int code;
+
+        public String getValue() {
+            return value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+    public enum PaymentType{
+        ONLINE_PAY(1, "在线支付");
+
+        PaymentType(int code,String value) {
+            this.value = value;
+            this.code = code;
+        }
+        private String value;
+        private int code;
 
         public String getValue() {
             return value;
