@@ -1,7 +1,6 @@
 package com.mmall.vo;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class OrderItemVo {
 
@@ -19,7 +18,7 @@ public class OrderItemVo {
 
     private BigDecimal totalPrice;
 
-    private Date updateTime;
+    private String createTime;
 
     public Long getOrderNo() {
         return orderNo;
@@ -77,11 +76,11 @@ public class OrderItemVo {
         this.totalPrice = totalPrice;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

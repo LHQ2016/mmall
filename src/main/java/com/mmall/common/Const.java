@@ -68,6 +68,15 @@ public class Const {
         public int getCode() {
             return code;
         }
+
+        public static OrderStatusEnum codeOf(int code) {
+            for (OrderStatusEnum orderstatusenum : values()) {
+                if (orderstatusenum.getCode() == code) {
+                    return orderstatusenum;
+                }
+            }
+            throw new RuntimeException("没有找到对应过的枚举");
+        }
     }
     public interface AliPayCallback{
         String TRADE_STATUS_WAIT_BUYER_PAY = "WAIT_BUYER_PAY";
@@ -96,10 +105,10 @@ public class Const {
             return code;
         }
     }
-    public enum PaymentType{
+    public enum PaymentTypeEnum{
         ONLINE_PAY(1, "在线支付");
 
-        PaymentType(int code,String value) {
+        PaymentTypeEnum(int code,String value) {
             this.value = value;
             this.code = code;
         }
@@ -112,6 +121,15 @@ public class Const {
 
         public int getCode() {
             return code;
+        }
+
+        public static PaymentTypeEnum codeOf(int code) {
+            for (PaymentTypeEnum paymentTypeEnum : values()) {
+                if (paymentTypeEnum.getCode() == code) {
+                    return paymentTypeEnum;
+                }
+            }
+            throw new RuntimeException("没有找到对应过的枚举");
         }
     }
 }
