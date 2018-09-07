@@ -1,4 +1,4 @@
-package com.mmall.service;
+package com.mmall.service.Impl;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -9,6 +9,7 @@ import com.mmall.dao.CartMapper;
 import com.mmall.dao.ProductMapper;
 import com.mmall.pojo.Cart;
 import com.mmall.pojo.Product;
+import com.mmall.service.ICartService;
 import com.mmall.util.BigDecimalUtil;
 import com.mmall.util.PropertiesUtil;
 import com.mmall.vo.CartProductVo;
@@ -21,7 +22,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service("ICartService")
-public class ICartServiceImpl implements ICartService {
+public class CartServiceImpl implements ICartService {
     @Autowired
     private CartMapper cartMapper;
 
